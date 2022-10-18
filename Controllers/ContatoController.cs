@@ -14,6 +14,7 @@ namespace _1API.Controllers
     {
 
         private readonly AgendaContext _context;
+        
         public ContatoController(AgendaContext context)
         {
             _context = context;
@@ -21,7 +22,7 @@ namespace _1API.Controllers
 
         //Create
         [HttpPost("NovoContato")]
-        public IActionResult Create(Contato contato)
+        public ActionResult<Contato> Create(Contato contato)
         {
             _context.Add(contato);
             _context.SaveChanges();
@@ -46,7 +47,7 @@ namespace _1API.Controllers
 
         //Update
         [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, Contato contato)
+        public ActionResult<Contato> Atualizar(int id, Contato contato)
         {
             var contatoBanco = _context.Contatos.Find(id);
 
@@ -67,7 +68,7 @@ namespace _1API.Controllers
 
         //Read
         [HttpGet("{id}")]
-        public IActionResult ObterPorId(int id)
+        public ActionResult<Contato> ObterPorId(int id)
         {
             var contato = _context.Contatos.Find(id);
 
@@ -79,7 +80,7 @@ namespace _1API.Controllers
         }
 
         [HttpGet("ObterPorNome")]
-        public IActionResult ObterPorNome(string nome)
+        public ActionResult<Contato> ObterPorNome(string nome)
         {
 
             var contatos = _context.Contatos.Where(x => x.Nome.Contains(nome));
@@ -92,7 +93,7 @@ namespace _1API.Controllers
         }
 
         [HttpGet("Listar")]
-        public IActionResult GetAll()
+        public ActionResult<Contato> GetAll()
         {
             return Ok(_context.Contatos.ToList());
         }
